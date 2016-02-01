@@ -51,26 +51,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="useless.p2.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/useless.p2.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="useless.p1.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/useless.p1.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="useless.p4.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/useless.p4.txt">
           <provider selected="true" editor-type-id="text-editor">
@@ -91,8 +71,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="903080396.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/903080396.gradle">
+      <file leaf-file-name="nkalteux3.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/nkalteux3.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.5588235">
               <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
@@ -569,22 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/useless.p2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/useless.p1.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/useless.p4.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -617,7 +581,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/903080396.gradle">
+    <entry file="file://$PROJECT_DIR$/nkalteux3.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5588235">
           <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
