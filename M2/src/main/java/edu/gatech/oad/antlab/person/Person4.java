@@ -31,9 +31,9 @@ public class Person4 {
      */
     private String calc(String input) {
 	//Person 4 put your implementation here
-	char[input.length()] a = input.toCharArray();
+	char[] a = input.toCharArray();
 	for (int i = 0; i < a.length; i++) {
-	    a[i] = a[i] + 1;
+	    a[i] = (char) (a[i] + 1);
 	}
 	return new String(a);
     }
