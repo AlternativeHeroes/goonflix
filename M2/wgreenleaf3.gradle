@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+//set up some variables
+sourceCompatibility = 1.8
+version = '1.0'
+
+jar {
+    manifest {
+        attributes "Main-Class": "edu.gatech.oad.antlab.pkg1.AntLabMain"
+    }
+}
+
+dependencies {
+    compile files('./lib/resources.jar')
+}
+
+mainClassName = "edu.gatech.oad.antlab.pkg1.AntLabMain"
