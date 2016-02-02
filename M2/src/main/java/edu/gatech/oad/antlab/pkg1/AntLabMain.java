@@ -65,41 +65,18 @@ import edu.gatech.oad.antlab.pkg2.*;
 		  toPrint += p2.toString("meden3");
 		  //Person3 replace P3 with your name
 		  //and gburdell3 with your gt id
-<<<<<<< HEAD
-<<<<<<< HEAD
 		  Person3 p3 = new Person3("Nick Kalteux");
 		  toPrint += p3.toString("nkalteux3");
-=======
-		  Person3 p3 = new Person3("P3");
-		  toPrint += p3.toString("gburdell3");
->>>>>>> parent of 4f911e6... finished p3
-                  //Person4 replace P4 with your name
-                  //and gburdell4 with your gt id
-                  Person4 p4 = new Person4("P4");
-                  toPrint += p4.toString("gburdell4");
-                  //Person5 replace P4 with your name
-                  //and gburdell5 with your gt id
-                  Person5 p5 = new Person5("P5");
-                  toPrint += p5.toString("gburdell5");
-		  
-        System.out.println(toPrint);
-        
-        
-=======
-		  Person3 p3 = new Person3("P3");
-		  toPrint += p3.toString("gburdell3");
           //Person4 replace P4 with your name
           //and gburdell4 with your gt id
           Person4 p4 = new Person4("P4");
-          toPrint += p4.toString("gburdell4");
-          //Person5 replace P4 with your name
+          toPrint += p4.toString("wgreenleaf3");
+          //Person5 replace P5 with your name
           //and gburdell5 with your gt id
           Person5 p5 = new Person5("P5");
-          toPrint += p5.toString("903044360");
-          System.out.println(toPrint);
-
-
->>>>>>> fd1cae0c5719eec203fc6a14fd8c1e5f0968172c
+          toPrint += p5.toString("kkrishnan8");
+		  
+        System.out.println(toPrint);
     }
 
 
