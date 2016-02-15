@@ -19,6 +19,8 @@ public class UserInfo {
         uid = source.getSharedPreferences("goonflix_user_info", 0).getString("uid", null);
         if (isLoggedIn()) {
             gotoUserHomepage(source);
+        } else {
+            gotoWelcomeScreen(source);
         }
     }
 
@@ -61,6 +63,11 @@ public class UserInfo {
         SharedPreferences.Editor editor = source.getSharedPreferences("goonflix_user_info", 0).edit();
         editor.remove("uid");
         editor.commit();
+        // move to welcome screen
+        gotoWelcomeScreen(source);
+    }
+
+    private static void gotoWelcomeScreen(Activity source) {
         // move to welcome screen
         Intent welcome_screen_intent = new Intent(source, WelcomeScreen.class);
         welcome_screen_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -14,9 +14,6 @@ public class WelcomeScreen extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // load previous login if available (might go directly to user homepage)
-        UserInfo.init(this);
-
         setContentView(R.layout.activity_welcome_screen);
 
         Button login_button = (Button) this.findViewById(R.id.login_button);
