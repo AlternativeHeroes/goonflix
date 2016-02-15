@@ -112,7 +112,7 @@ public class LoginActivity extends ActionBarActivity {
             public void onAuthenticationError(FirebaseError firebaseError) {
                 login_spinner.dismiss();
                 System.out.println("incorrect login credentials");
-                new AlertDialog.Builder(LoginActivity.this).setMessage("Incorrect Email/Password")
+                new AlertDialog.Builder(LoginActivity.this).setMessage(firebaseError.getMessage())
                         .setPositiveButton("Ok", null).create().show();
             }
         });

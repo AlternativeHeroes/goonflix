@@ -1,5 +1,6 @@
 package com.goonsquad.goonflix;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -71,9 +72,10 @@ public class RegistrationScreen extends ActionBarActivity {
                     }
                     @Override
                     public void onError(FirebaseError firebaseError) {
-                        // TODO alert the user
-                        System.out.println("AYYYYYYYY");
                         System.out.println(firebaseError);
+                        reg_spinner.dismiss();
+                        new AlertDialog.Builder(RegistrationScreen.this).setMessage(firebaseError.getMessage())
+                                .setPositiveButton("Ok", null).create().show();
                     }
                 });
             }
