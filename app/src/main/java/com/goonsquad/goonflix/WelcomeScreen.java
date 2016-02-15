@@ -29,6 +29,7 @@ public class WelcomeScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent register_intent = new Intent(WelcomeScreen.this, RegistrationScreen.class);
+                startActivity(register_intent);
             }
         });
     }

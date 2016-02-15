@@ -9,4 +9,55 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.goonsquad.goonflix.RegistrationScreen">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/reg_name"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:hint="name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/reg_username"
+        android:layout_below="@+id/reg_name"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="true"
+        android:hint="username" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/reg_password"
+        android:layout_below="@+id/reg_username"
+        android:layout_centerHorizontal="true"
+        android:hint="password" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Register!"
+        android:id="@+id/register_text"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
+        android:textSize="80dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trie"
+        android:id="@+id/reg_submit"
+        android:layout_below="@+id/reg_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp" />
+
 </RelativeLayout>
