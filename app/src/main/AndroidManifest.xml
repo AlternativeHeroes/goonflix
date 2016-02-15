@@ -26,7 +26,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistrationScreen" />
         <activity android:name=".UserHomepage" />
-        <activity android:name=".WelcomeScreen"></activity>
+        <activity android:name=".WelcomeScreen" />
+        <activity android:name=".EditUserProfile"></activity>
     </application>
 
 </manifest>
