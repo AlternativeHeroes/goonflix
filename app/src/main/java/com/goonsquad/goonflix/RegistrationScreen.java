@@ -1,5 +1,6 @@
 package com.goonsquad.goonflix;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ public class RegistrationScreen extends ActionBarActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final ProgressDialog reg_spinner = ProgressDialog.show(RegistrationScreen.this, "Creating new user", "Please wait");
+
                 final String name = ((TextView)RegistrationScreen.this.findViewById(R.id.reg_name)).getText().toString();
                 final String email = ((TextView)RegistrationScreen.this.findViewById(R.id.reg_email)).getText().toString();
                 final String password = ((TextView)RegistrationScreen.this.findViewById(R.id.reg_password)).getText().toString();
@@ -57,6 +61,7 @@ public class RegistrationScreen extends ActionBarActivity {
                                     System.out.println("ayyy failed on user info save");
                                     System.out.println(firebaseError);
                                 } else {
+                                    reg_spinner.dismiss();
                                     // if no error, remember login, jump to user homepage
                                     UserInfo.login(uid, RegistrationScreen.this);
                                 }
