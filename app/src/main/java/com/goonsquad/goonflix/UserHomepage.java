@@ -16,7 +16,7 @@ public class UserHomepage extends ActionBarActivity {
         // TODO create "AuthenticatedActivity" super class with this logic
         if (!UserInfo.isLoggedIn()) {
             System.out.println("User not logged in. Cannot access this Activity");
-            finish();
+            throw new AssertionError("pepe inhaled too much jet fuel");
         }
 
         setContentView(R.layout.activity_user_homepage);
@@ -26,7 +26,7 @@ public class UserHomepage extends ActionBarActivity {
         logout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserHomepage.this.finish();
+                UserInfo.logout(UserHomepage.this);
             }
         });
     }

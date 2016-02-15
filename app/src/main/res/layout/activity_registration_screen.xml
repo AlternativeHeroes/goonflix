@@ -22,23 +22,12 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/reg_username"
-        android:layout_below="@+id/reg_name"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:hint="username" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/reg_password"
-        android:layout_below="@+id/reg_username"
-        android:layout_centerHorizontal="true"
-        android:hint="password" />
+        android:hint="password"
+        android:layout_below="@+id/reg_email"
+        android:layout_alignStart="@+id/reg_email" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,5 +48,15 @@
         android:layout_below="@+id/reg_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/reg_email"
+        android:layout_below="@+id/reg_name"
+        android:layout_alignStart="@+id/reg_name"
+        android:hint="email" />
 
 </RelativeLayout>

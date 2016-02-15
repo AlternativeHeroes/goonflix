@@ -19,6 +19,13 @@ public class RegistrationScreen extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // TODO create "UnauthenticatedActivity" super class with this logic
+        if (UserInfo.isLoggedIn()) {
+            System.out.println("User is logged in. Cannot access this Activity");
+            throw new AssertionError("pepe ran out of jet fuel");
+        }
+
         setContentView(R.layout.activity_registration_screen);
 
         Firebase.setAndroidContext(this);
@@ -51,9 +58,7 @@ public class RegistrationScreen extends ActionBarActivity {
                                     System.out.println(firebaseError);
                                 } else {
                                     // if no error, remember login, jump to user homepage
-                                    UserInfo.login(uid);
-                                    Intent homepage_intent = new Intent(RegistrationScreen.this, UserHomepage.class);
-                                    startActivity(homepage_intent);
+                                    UserInfo.login(uid, RegistrationScreen.this);
                                 }
                             }
                         });
