@@ -15,6 +15,11 @@ public class UserInfo {
     private static final String USER_INFO_PREFERENCES = "goonflix_user_info";
     private static String uid;
 
+    /**
+     * Load the auth configuration from disk, redirect activity to
+     * correct activity depending on whether the user is logged in
+     * @param source
+     */
     public static void init(Activity source) {
         uid = source.getSharedPreferences("goonflix_user_info", 0).getString("uid", null);
         if (isLoggedIn()) {
@@ -24,14 +29,22 @@ public class UserInfo {
         }
     }
 
+    /**
+     * Checks if the user is logged in
+     * @return true if the user is logged in
+     */
     public static boolean isLoggedIn() { return uid != null; }
 
+    /**
+     * Get's the user's unique user id, if a user is logged in
+     * @return the uid if the user is logged in
+     */
     public static String getUid() { return uid; }
 
     /**
      * Login the user, remembers the uid, moves to user homepage and prevents backtracking
-     * @param uid
-     * @param source
+     * @param uid the user id of the user to log in
+     * @param source the activity from which this is being called
      */
     public static void login(String uid, Activity source) {
         if (isLoggedIn()) {
@@ -56,7 +69,7 @@ public class UserInfo {
 
     /**
      * Logout the user, remove the uid, moves to welcome screen and prevents backtracking
-     * @param source
+     * @param source the activity from which this is being called
      */
     public static void logout(Activity source) {
         // clear the in-memory uid

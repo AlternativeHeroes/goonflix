@@ -23,6 +23,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * Activity for editing the user profile. This screen can also change
+ * passwords and emails.
+ */
 public class EditUserProfile extends ActionBarActivity {
 
     private String email;

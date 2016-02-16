@@ -16,6 +16,9 @@ import com.goonsquad.goonflix.user.UserInfo;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Screen to register a new user, log this user in, and save his credentials to the db
+ */
 public class RegistrationScreen extends ActionBarActivity {
 
     @Override

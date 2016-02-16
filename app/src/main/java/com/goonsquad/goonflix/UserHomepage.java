@@ -8,6 +8,9 @@ import android.widget.Button;
 
 import com.goonsquad.goonflix.user.UserInfo;
 
+/**
+ * Homepage of the User, first thing shown when user is logged in
+ */
 public class UserHomepage extends ActionBarActivity {
 
     @Override

@@ -8,6 +8,10 @@ import android.widget.Button;
 
 import com.goonsquad.goonflix.user.UserInfo;
 
+/**
+ * Shows when the user is not logged in, has options to
+ * register as a new user or log into another user
+ */
 public class WelcomeScreen extends ActionBarActivity {
 
     @Override
