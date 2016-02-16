@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,6 +82,35 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        Button forgot_pass_button = (Button) findViewById(R.id.login_recover_password);
+        forgot_pass_button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ProgressDialog progress = ProgressDialog.show(LoginActivity.this, "Sending email", "please wait");
+                fb.resetPassword(mEmailView.getText().toString(), new Firebase.ResultHandler() {
+                    @Override
+                    public void onSuccess() {
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("Password Reset Successful")
+                                .setMessage("An email with instructions has been sent to " + mEmailView.getText())
+                                .create()
+                                .show();
+                        progress.dismiss();
+                    }
+
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("Error resetting password")
+                                .setMessage(firebaseError.getMessage())
+                                .create()
+                                .show();
+                        progress.dismiss();
+                    }
+                });
             }
         });
 
