@@ -26,6 +26,8 @@ public class UserInfo {
 
     public static boolean isLoggedIn() { return uid != null; }
 
+    public static String getUid() { return uid; }
+
     /**
      * Login the user, remembers the uid, moves to user homepage and prevents backtracking
      * @param uid
