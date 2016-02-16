@@ -49,7 +49,7 @@ public class LoginActivity extends ActionBarActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    private Button mEmailSignInButton;
     private Firebase fb;
 
     @Override
@@ -76,7 +76,7 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +88,7 @@ public class LoginActivity extends ActionBarActivity {
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    private boolean isAttemptingAuthentication = false;
 
     /**
      * Attempts to sign in the account specified by the login form.
@@ -95,6 +96,12 @@ public class LoginActivity extends ActionBarActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+
+        if (isAttemptingAuthentication) {
+            return;
+        }
+        isAttemptingAuthentication = true;
+        mEmailSignInButton.setEnabled(false);
 
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -111,7 +118,9 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onAuthenticationError(FirebaseError firebaseError) {
                 login_spinner.dismiss();
-                System.out.println("incorrect login credentials");
+                isAttemptingAuthentication = false;
+                mEmailSignInButton.setEnabled(true);
+                System.out.println(firebaseError);
                 new AlertDialog.Builder(LoginActivity.this).setMessage(firebaseError.getMessage())
                         .setPositiveButton("Ok", null).create().show();
             }
