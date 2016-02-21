@@ -27,7 +27,8 @@
         <activity android:name=".RegistrationScreen" />
         <activity android:name=".UserHomepage" />
         <activity android:name=".WelcomeScreen" />
-        <activity android:name=".EditUserProfile"></activity>
+        <activity android:name=".EditUserProfile" />
+        <activity android:name=".movies.MovieSearch"></activity>
     </application>
 
 </manifest>

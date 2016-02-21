@@ -1,11 +1,13 @@
 package com.goonsquad.goonflix;
 
 import android.content.Intent;
+import android.graphics.Movie;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.goonsquad.goonflix.movies.MovieSearch;
 import com.goonsquad.goonflix.user.UserInfo;
 
 /**
@@ -41,6 +43,16 @@ public class UserHomepage extends ActionBarActivity {
                 // go to user homescreen
                 Intent edit_profile_intent = new Intent(UserHomepage.this, EditUserProfile.class);
                 startActivity(edit_profile_intent);
+            }
+        });
+
+        Button search_movies_button = (Button) findViewById(R.id.homepage_search);
+        search_movies_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // go to search movies screen
+                Intent search_movies_intent = new Intent(UserHomepage.this, MovieSearch.class);
+                startActivity(search_movies_intent);
             }
         });
     }

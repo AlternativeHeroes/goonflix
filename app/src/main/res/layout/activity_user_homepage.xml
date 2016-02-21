@@ -24,4 +24,12 @@
         android:id="@+id/homepage_edit_profile"
         android:layout_alignBottom="@+id/homepage_logout"
         android:layout_toStartOf="@+id/homepage_logout" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/homepage_search"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/homepage_edit_profile" />
 </RelativeLayout>
