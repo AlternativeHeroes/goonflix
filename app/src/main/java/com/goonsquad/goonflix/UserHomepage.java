@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.goonsquad.goonflix.movies.MovieList;
 import com.goonsquad.goonflix.movies.MovieSearch;
 import com.goonsquad.goonflix.user.UserInfo;
 
@@ -55,5 +56,28 @@ public class UserHomepage extends ActionBarActivity {
                 startActivity(search_movies_intent);
             }
         });
+
+        Button new_releases_button = (Button) findViewById(R.id.homepage_newreleases);
+        new_releases_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // go to new releases page
+                Intent new_releases_intent = new Intent(UserHomepage.this, MovieList.class);
+                new_releases_intent.putExtra(MovieList.DATA_SOURCE_TAG, MovieList.NEW_RELEASES);
+                startActivity(new_releases_intent);
+            }
+        });
+
+        Button new_dvds_button = (Button) findViewById(R.id.homepage_newdvds);
+        new_dvds_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // go to new dvds button
+                Intent new_dvds_intent = new Intent(UserHomepage.this, MovieList.class);
+                new_dvds_intent.putExtra(MovieList.DATA_SOURCE_TAG, MovieList.NEW_DVDS);
+                startActivity(new_dvds_intent);
+            }
+        });
     }
 }
+

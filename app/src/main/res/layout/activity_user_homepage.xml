@@ -30,6 +30,22 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/homepage_search"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/homepage_edit_profile" />
+        android:layout_below="@+id/homepage_logout"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Releases"
+        android:id="@+id/homepage_newreleases"
+        android:layout_alignTop="@+id/homepage_search"
+        android:layout_toStartOf="@+id/homepage_search" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New DVDs"
+        android:id="@+id/homepage_newdvds"
+        android:layout_alignBottom="@+id/homepage_newreleases"
+        android:layout_toStartOf="@+id/homepage_newreleases" />
 </RelativeLayout>
