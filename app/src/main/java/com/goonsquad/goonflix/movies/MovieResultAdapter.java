@@ -83,7 +83,7 @@ public class MovieResultAdapter extends BaseAdapter {
         TextView result_year = (TextView) movie_result.findViewById(R.id.movieresult_year);
         result_year.setText(((Long) movie.year).toString());
 
-        if (movie.thumbnail != null) {
+        if (movie.getThumbnail() != null) {
             ImageView result_thumb = (ImageView) movie_result.findViewById(R.id.movieresult_thumb);
             result_thumb.setImageBitmap(movie.getThumbnail());
             result_thumb.setScaleType(ImageView.ScaleType.CENTER_CROP);
