@@ -81,7 +81,11 @@ public class MovieResultAdapter extends BaseAdapter {
         result_title.setText(movie.title);
 
         TextView result_year = (TextView) movie_result.findViewById(R.id.movieresult_year);
-        result_year.setText(((Long) movie.year).toString());
+        if (movie.year != null) {
+            result_year.setText(((Long) movie.year).toString());
+        } else {
+            result_year.setText("-");
+        }
 
         if (movie.getThumbnail() != null) {
             ImageView result_thumb = (ImageView) movie_result.findViewById(R.id.movieresult_thumb);

@@ -24,11 +24,11 @@ public class RTMovie {
     /**
      * The rotten tomatoes id of the movie
      */
-    public final long id;
+    public final Long id;
     /**
      * the year the movie was released
      */
-    public final long year;
+    public final Long year;
 
     private Bitmap thumbnail;
 
@@ -47,11 +47,16 @@ public class RTMovie {
      * @throws JSONException thrown when the JSON is not the expected scheme.
      */
     RTMovie(JSONObject movie, final Callback callback) throws JSONException {
+
         title = movie.getString("title");
         id = Long.parseLong(movie.getString("id"));
-        year = movie.getLong("year");
+        String t_year = movie.getString("year");
+        if (t_year.equals("")) {
+            year = null;
+        } else {
+            year = Long.parseLong(movie.getString("year"));
+        }
         rating = movie.getString("mpaa_rating");
-
         ImageDownloader downloader = new ImageDownloader(new ImageDownloader.Callback() {
             @Override
             public void finished(Bitmap result) {
