@@ -2,8 +2,11 @@ package com.goonsquad.goonflix.movies;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
@@ -41,6 +44,16 @@ public class MovieList extends ActionBarActivity {
 
         // Figure out what we are going to show.
         type = getIntent().getIntExtra(DATA_SOURCE_TAG, 0);
+
+        results_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                RTMovie movie = (RTMovie) parent.getAdapter().getItem(position);
+                Intent view_movie = new Intent(MovieList.this, MovieView.class);
+                view_movie.putExtra("movie", movie);
+                startActivity(view_movie);
+            }
+        });
     }
 
     @Override

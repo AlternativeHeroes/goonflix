@@ -29,7 +29,8 @@
         <activity android:name=".WelcomeScreen" />
         <activity android:name=".EditUserProfile" />
         <activity android:name=".movies.MovieSearch" />
-        <activity android:name=".movies.MovieList"></activity>
+        <activity android:name=".movies.MovieList" />
+        <activity android:name=".movies.MovieView"></activity>
     </application>
 
 </manifest>

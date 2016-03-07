@@ -43,7 +43,7 @@ public class EditUserProfile extends ActionBarActivity {
         fb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
-                populate(data.getValue(new GenericTypeIndicator<Map<String, String>>() {}));
+                populate((Map<String, String>) data.getValue());
             }
 
             @Override

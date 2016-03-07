@@ -60,7 +60,7 @@ public class MovieResultAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return movies.get(position).id;
+        return movies.get(position).getId();
     }
 
     @Override
@@ -78,14 +78,10 @@ public class MovieResultAdapter extends BaseAdapter {
         }
 
         TextView result_title = (TextView) movie_result.findViewById(R.id.movieresult_title);
-        result_title.setText(movie.title);
+        result_title.setText(movie.getTitle());
 
         TextView result_year = (TextView) movie_result.findViewById(R.id.movieresult_year);
-        if (movie.year != null) {
-            result_year.setText(((Long) movie.year).toString());
-        } else {
-            result_year.setText("-");
-        }
+        result_year.setText(movie.getYearString());
 
         if (movie.getThumbnail() != null) {
             ImageView result_thumb = (ImageView) movie_result.findViewById(R.id.movieresult_thumb);
