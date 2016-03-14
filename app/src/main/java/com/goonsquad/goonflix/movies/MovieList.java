@@ -10,9 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
+import com.firebase.client.Firebase;
 import com.goonsquad.goonflix.R;
 import com.goonsquad.goonflix.movies.rottentomatoes.RTMovie;
 import com.goonsquad.goonflix.movies.rottentomatoes.RottenApi;
+import com.goonsquad.goonflix.user.UserInfo;
 
 import java.util.List;
 
@@ -63,7 +65,7 @@ public class MovieList extends ActionBarActivity {
         super.onResume();
         final ProgressDialog spinner = ProgressDialog.show(this, "Loading...", "Please wait");
 
-        RottenApi.Callback<List<RTMovie>> callback = new RottenApi.Callback<List<RTMovie>>() {
+        final RottenApi.Callback<List<RTMovie>> callback = new RottenApi.Callback<List<RTMovie>>() {
             @Override
             public void success(List<RTMovie> data) {
                 spinner.dismiss();
@@ -82,6 +84,9 @@ public class MovieList extends ActionBarActivity {
             }
         };
 
+        Firebase.setAndroidContext(this);
+        Firebase fb = new Firebase("https://goonflix.firebaseio.com");
+
         if (type == NEW_DVDS) {
             rotten_api.new_dvds(callback);
         } else if (type == NEW_RELEASES) {
@@ -89,7 +94,17 @@ public class MovieList extends ActionBarActivity {
         } else if (type == OVERALL_RATED) {
             // TODO: get ids from FireBase
         } else if (type == MAJOR_RATED) {
-            // TODO: get ids from FireBase
+            BestMovies.highestRatedByMajor(fb, UserInfo.getUid(), new RottenApi.Callback<List<Long>>() {
+                @Override
+                public void success(List<Long> data) {
+                    rotten_api.fetch_movies(data, callback);
+                }
+
+                @Override
+                public void failure(VolleyError error) {
+                    callback.failure(error);
+                }
+            });
         }
     }
 

@@ -18,7 +18,7 @@ public class MovieView extends ActionBarActivity {
 
     RTMovie movie;
 
-    Firebase fb;
+    Firebase fb, fb2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,12 @@ public class MovieView extends ActionBarActivity {
                 .child("ratings")
                 .child(movie.getId().toString())
                 .child(UserInfo.getUid());
+        fb2 = new Firebase("https://goonflix.firebaseio.com/") // IM SO SORRY
+                .child("users")
+                .child(UserInfo.getUid())
+                .child("ratings")
+                .child(movie.getId().toString());
+
 
         ((TextView) findViewById(R.id.movieview_title)).setText(movie.getTitle());
         ((TextView) findViewById(R.id.movieview_year)).setText(movie.getYearString());
@@ -60,7 +66,10 @@ public class MovieView extends ActionBarActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 if (fromUser) {
+                    // NOTE: im so sorry
+                    // TODO fix this
                     fb.setValue(((Float) rating).toString());
+                    fb2.setValue(((Float) rating).toString());
                 }
             }
         });

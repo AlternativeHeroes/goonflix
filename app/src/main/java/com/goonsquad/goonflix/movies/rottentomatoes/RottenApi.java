@@ -184,6 +184,11 @@ public class RottenApi {
      */
     public void fetch_movies(final List<Long> ids, final Callback<List<RTMovie>> callback) {
 
+        if (ids.size() == 0) {
+            callback.success(new ArrayList<RTMovie>(0));
+            return;
+        }
+
         final JSONArray json_movies = new JSONArray();
 
         Callback<JSONObject> collector = new Callback<JSONObject>() {
