@@ -33,6 +33,7 @@ public class RottenApi {
     public static final String MOVIE_SEARCH = "http://api.rottentomatoes.com/api/public/v1.0/movies.json";
     public static final String NEW_RELEASES = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json";
     public static final String NEW_DVDS = "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json";
+    public static final String GET_MOVIE = "http://api.rottentomatoes.com/api/public/v1.0/movies/";
 
     /**
      * A callback to notify the user when an API call has finished.
@@ -174,6 +175,42 @@ public class RottenApi {
                 callback.failure(error);
             }
         });
+    }
+
+    /**
+     * Fetch some movies from rotten tomatoes based on their IDs
+     * @param ids the ids of the movies to fetch
+     * @return a list of parsed RTMovie objects
+     */
+    public void fetch_movies(final List<Long> ids, final Callback<List<RTMovie>> callback) {
+
+        final JSONArray json_movies = new JSONArray();
+
+        Callback<JSONObject> collector = new Callback<JSONObject>() {
+            @Override
+            public void success(JSONObject data) {
+                json_movies.put(data);
+                if (json_movies.length() == ids.size()) {
+                    try {
+                        Log.i(TAG, json_movies.toString());
+                        parse_movies(json_movies, callback);
+                    } catch (JSONException err) {
+                        callback.failure(new VolleyError("JSON parsing exception"));
+                    }
+                }
+            }
+
+            @Override
+            public void failure(VolleyError error) {
+                callback.failure(error);
+            }
+        };
+
+        for (long id : ids) {
+            Uri.Builder uri_builder = Uri.parse(GET_MOVIE).buildUpon();
+            uri_builder.appendPath(id + ".json");
+            rest_request(uri_builder.build().toString(), null, collector);
+        }
     }
 
     private void parse_movies(JSONArray json_movies, final Callback<List<RTMovie>> callback) throws JSONException {
