@@ -1,5 +1,6 @@
 package com.goonsquad.goonflix.user;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,6 +47,7 @@ public class UserInfo {
      * @param uid the user id of the user to log in
      * @param source the activity from which this is being called
      */
+    @SuppressLint("CommitPrefEdits")
     public static void login(String uid, Activity source) {
         if (isLoggedIn()) {
             throw new AlreadyLoggedInException();

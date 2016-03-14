@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.goonsquad.goonflix.movies.MovieList;
 import com.goonsquad.goonflix.movies.MovieSearch;
 import com.goonsquad.goonflix.user.UserInfo;
@@ -19,6 +23,7 @@ public class UserHomepage extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
 
         // TODO create "AuthenticatedActivity" super class with this logic
         if (!UserInfo.isLoggedIn()) {
@@ -101,13 +106,28 @@ public class UserHomepage extends ActionBarActivity {
             }
         });
 
-        Button ban_management = (Button) findViewById(R.id.homepage_banman);
+        final Button ban_management = (Button) findViewById(R.id.homepage_banman);
         ban_management.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // go to ban management screen
                 Intent ban_intent = new Intent(UserHomepage.this, BanManagementScreen.class);
                 startActivity(ban_intent);
+            }
+        });
+
+        new Firebase("https://goonflix.firebaseio.com/")
+                .child("users")
+                .child(UserInfo.getUid())
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean is_admin = dataSnapshot.hasChild("admin");
+                ban_management.setVisibility(is_admin ? View.VISIBLE : View.GONE);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
             }
         });
     }

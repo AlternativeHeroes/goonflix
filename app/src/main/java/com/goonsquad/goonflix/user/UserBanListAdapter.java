@@ -30,7 +30,9 @@ public class UserBanListAdapter extends BaseAdapter {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 users.clear();
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
-                    users.add(User.parse(user));
+                    if (!user.hasChild("admin")) {
+                        users.add(User.parse(user));
+                    }
                 }
                 UserBanListAdapter.this.notifyDataSetInvalidated();
             }
