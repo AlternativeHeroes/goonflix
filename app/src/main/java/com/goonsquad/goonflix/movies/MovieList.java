@@ -16,6 +16,7 @@ import com.goonsquad.goonflix.movies.rottentomatoes.RTMovie;
 import com.goonsquad.goonflix.movies.rottentomatoes.RottenApi;
 import com.goonsquad.goonflix.user.UserInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,7 +93,17 @@ public class MovieList extends ActionBarActivity {
         } else if (type == NEW_RELEASES) {
             rotten_api.new_releases(callback);
         } else if (type == OVERALL_RATED) {
-            // TODO: get ids from FireBase
+            BestMovies.highestRatedOverall(fb, new RottenApi.Callback<List<Long>>() {
+                @Override
+                public void success(List<Long> data) {
+                    rotten_api.fetch_movies(data, callback);
+                }
+
+                @Override
+                public void failure(VolleyError error) {
+                    callback.failure(error);
+                }
+            });
         } else if (type == MAJOR_RATED) {
             BestMovies.highestRatedByMajor(fb, UserInfo.getUid(), new RottenApi.Callback<List<Long>>() {
                 @Override

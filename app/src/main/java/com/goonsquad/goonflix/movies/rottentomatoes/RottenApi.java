@@ -215,6 +215,11 @@ public class RottenApi {
             Uri.Builder uri_builder = Uri.parse(GET_MOVIE).buildUpon();
             uri_builder.appendPath(id + ".json");
             rest_request(uri_builder.build().toString(), null, collector);
+            try {
+                Thread.sleep(205);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
