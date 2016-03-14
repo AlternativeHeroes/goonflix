@@ -29,6 +29,8 @@ public class MovieList extends ActionBarActivity {
 
     public static final int NEW_DVDS = 0;
     public static final int NEW_RELEASES = 1;
+    public static final int OVERALL_RATED = 2;
+    public static final int MAJOR_RATED = 3;
     public static final String DATA_SOURCE_TAG = "data-source";
 
     @Override
@@ -84,6 +86,10 @@ public class MovieList extends ActionBarActivity {
             rotten_api.new_dvds(callback);
         } else if (type == NEW_RELEASES) {
             rotten_api.new_releases(callback);
+        } else if (type == OVERALL_RATED) {
+            // TODO: get ids from FireBase
+        } else if (type == MAJOR_RATED) {
+            // TODO: get ids from FireBase
         }
     }
 

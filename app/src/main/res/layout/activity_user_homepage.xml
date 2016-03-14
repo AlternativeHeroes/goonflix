@@ -48,4 +48,20 @@
         android:id="@+id/homepage_newdvds"
         android:layout_alignBottom="@+id/homepage_newreleases"
         android:layout_toStartOf="@+id/homepage_newreleases" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Top Rated by Major"
+        android:id="@+id/homepage_major_rated"
+        android:layout_below="@+id/homepage_search"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Top Rated Overall"
+        android:id="@+id/homepage_overall_rated"
+        android:layout_below="@+id/homepage_newreleases"
+        android:layout_toStartOf="@+id/homepage_major_rated" />
 </RelativeLayout>

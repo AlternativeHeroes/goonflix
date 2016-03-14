@@ -78,6 +78,28 @@ public class UserHomepage extends ActionBarActivity {
                 startActivity(new_dvds_intent);
             }
         });
+
+        Button major_rated = (Button) findViewById(R.id.homepage_major_rated);
+        major_rated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // go to new dvds button
+                Intent major_rated_intent = new Intent(UserHomepage.this, MovieList.class);
+                major_rated_intent.putExtra(MovieList.DATA_SOURCE_TAG, MovieList.MAJOR_RATED);
+                startActivity(major_rated_intent);
+            }
+        });
+
+        Button overall_rated = (Button) findViewById(R.id.homepage_overall_rated);
+        overall_rated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // go to new dvds button
+                Intent overall_rated_intent = new Intent(UserHomepage.this, MovieList.class);
+                overall_rated_intent.putExtra(MovieList.DATA_SOURCE_TAG, MovieList.OVERALL_RATED);
+                startActivity(overall_rated_intent);
+            }
+        });
     }
 }
 
