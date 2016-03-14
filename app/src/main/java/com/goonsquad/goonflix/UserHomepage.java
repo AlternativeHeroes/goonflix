@@ -83,7 +83,7 @@ public class UserHomepage extends ActionBarActivity {
         major_rated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // go to new dvds button
+                // go to highest major rated
                 Intent major_rated_intent = new Intent(UserHomepage.this, MovieList.class);
                 major_rated_intent.putExtra(MovieList.DATA_SOURCE_TAG, MovieList.MAJOR_RATED);
                 startActivity(major_rated_intent);
@@ -94,10 +94,20 @@ public class UserHomepage extends ActionBarActivity {
         overall_rated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // go to new dvds button
+                // go to highest overall rated
                 Intent overall_rated_intent = new Intent(UserHomepage.this, MovieList.class);
                 overall_rated_intent.putExtra(MovieList.DATA_SOURCE_TAG, MovieList.OVERALL_RATED);
                 startActivity(overall_rated_intent);
+            }
+        });
+
+        Button ban_management = (Button) findViewById(R.id.homepage_banman);
+        ban_management.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // go to ban management screen
+                Intent ban_intent = new Intent(UserHomepage.this, BanManagementScreen.class);
+                startActivity(ban_intent);
             }
         });
     }

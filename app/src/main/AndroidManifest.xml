@@ -30,7 +30,8 @@
         <activity android:name=".EditUserProfile" />
         <activity android:name=".movies.MovieSearch" />
         <activity android:name=".movies.MovieList" />
-        <activity android:name=".movies.MovieView"></activity>
+        <activity android:name=".movies.MovieView" />
+        <activity android:name=".BanManagementScreen"></activity>
     </application>
 
 </manifest>
