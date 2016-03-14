@@ -29,10 +29,9 @@ public class MovieView extends ActionBarActivity {
 
         Firebase.setAndroidContext(this);
         fb = new Firebase("https://goonflix.firebaseio.com/")
-                .child("users")
-                .child(UserInfo.getUid())
                 .child("ratings")
-                .child(movie.getId().toString());
+                .child(movie.getId().toString())
+                .child(UserInfo.getUid());
 
         ((TextView) findViewById(R.id.movieview_title)).setText(movie.getTitle());
         ((TextView) findViewById(R.id.movieview_year)).setText(movie.getYearString());
