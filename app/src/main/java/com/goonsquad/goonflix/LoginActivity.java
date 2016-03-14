@@ -32,8 +32,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.goonsquad.goonflix.user.UserInfo;
 
 import java.util.ArrayList;
@@ -141,8 +143,30 @@ public class LoginActivity extends ActionBarActivity {
         fb.authWithPassword(email, password, new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
-                login_spinner.dismiss();
-                UserInfo.login(authData.getUid(), LoginActivity.this);
+                final String uuid = authData.getUid();
+                fb.child("users").child(uuid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        login_spinner.dismiss();
+                        fb.removeEventListener(this);
+                        boolean is_banned = dataSnapshot.hasChild("banned");
+                        if (is_banned) {
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setMessage("Sorry your account has been banned.")
+                                    .setPositiveButton("Ok", null)
+                                    .create()
+                                    .show();
+                            mEmailSignInButton.setEnabled(true);
+                            isAttemptingAuthentication = false;
+                        } else {
+                            UserInfo.login(uuid, LoginActivity.this);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+                    }
+                });
             }
 
             @Override
@@ -156,7 +180,5 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
     }
-
-
 }
 
