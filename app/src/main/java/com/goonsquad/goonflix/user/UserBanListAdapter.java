@@ -11,6 +11,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by michael on 3/14/16.
@@ -18,11 +19,14 @@ import java.util.ArrayList;
  */
 public class UserBanListAdapter extends BaseAdapter {
 
-    Firebase fb_users;
-    final ArrayList<User> users;
 
+    private final List users;
+    public static final int COLOR1 = 0xffff0000;
+    public static final int COLOR2 = 0xff000000;
+    public static final int FIFTEEN = 15;
+    public static final int THIRTY = 30;
     public UserBanListAdapter(Firebase fb_users) {
-        this.fb_users = fb_users;
+
         this.users = new ArrayList<>();
 
         fb_users.addValueEventListener(new ValueEventListener() {
@@ -43,44 +47,44 @@ public class UserBanListAdapter extends BaseAdapter {
         });
     }
 
-    public User getUser(int position) {
-        return users.get(position);
+    public final User getUser(int position) {
+        return (User) users.get(position);
     }
 
     @Override
-    public int getCount() {
+    public final int getCount() {
         return users.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public final Object getItem(int position) {
         return users.get(position);
     }
 
     @Override
-    public long getItemId(int position) {
+    public final long getItemId(int position) {
         return users.get(position).hashCode();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public final View getView(int position, View convertView, ViewGroup parent) {
         TextView view;
         if (convertView == null) {
             view = new TextView(parent.getContext());
         } else {
             view  = (TextView) convertView;
         }
-        User user = users.get(position);
-        view.setText(user.name);
-        if (user.banned) {
-            view.setBackgroundColor(0xffff0000);
+        User user = getUser(position);
+        view.setText(user.getName());
+        if (user.getBanned()) {
+            view.setBackgroundColor(COLOR1);
             view.setTextColor(0xffffffff);
         } else {
             view.setBackgroundColor(0x000000000);
-            view.setTextColor(0xff000000);
+            view.setTextColor(COLOR2);
         }
-        view.setPadding(15, 30, 15, 30);
-        view.setTextSize(30);
+        view.setPadding(FIFTEEN, THIRTY, FIFTEEN, THIRTY);
+        view.setTextSize(THIRTY);
 
         return view;
     }

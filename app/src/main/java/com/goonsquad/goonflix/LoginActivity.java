@@ -1,31 +1,15 @@
 package com.goonsquad.goonflix;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
+
 import android.support.v7.app.ActionBarActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +22,6 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.goonsquad.goonflix.user.UserInfo;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -51,12 +33,12 @@ public class LoginActivity extends ActionBarActivity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
-    private View mLoginFormView;
+
     private Button mEmailSignInButton;
     private Firebase fb;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // TODO move to utility method
@@ -115,8 +97,6 @@ public class LoginActivity extends ActionBarActivity {
                 });
             }
         });
-
-        mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
 
@@ -137,7 +117,7 @@ public class LoginActivity extends ActionBarActivity {
 
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        final ProgressDialog login_spinner = ProgressDialog.show(LoginActivity.this, "Logging in", "Please wait");
+        final ProgressDialog loginSpinner = ProgressDialog.show(LoginActivity.this, "Logging in", "Please wait");
 
 
         fb.authWithPassword(email, password, new Firebase.AuthResultHandler() {
@@ -147,7 +127,7 @@ public class LoginActivity extends ActionBarActivity {
                 fb.child("users").child(uuid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        login_spinner.dismiss();
+                        loginSpinner.dismiss();
                         fb.removeEventListener(this);
                         boolean is_banned = dataSnapshot.hasChild("banned");
                         if (is_banned) {
@@ -171,10 +151,10 @@ public class LoginActivity extends ActionBarActivity {
 
             @Override
             public void onAuthenticationError(FirebaseError firebaseError) {
-                login_spinner.dismiss();
+                loginSpinner.dismiss();
                 isAttemptingAuthentication = false;
                 mEmailSignInButton.setEnabled(true);
-                System.out.println(firebaseError);
+                //System.out.println(firebaseError);
                 new AlertDialog.Builder(LoginActivity.this).setMessage(firebaseError.getMessage())
                         .setPositiveButton("Ok", null).create().show();
             }

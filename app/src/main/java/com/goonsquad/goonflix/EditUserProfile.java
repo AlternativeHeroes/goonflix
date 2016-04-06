@@ -9,19 +9,18 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.GenericTypeIndicator;
 import com.firebase.client.ValueEventListener;
 import com.goonsquad.goonflix.user.UserInfo;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
+
 
 /**
  * Activity for editing the user profile. This screen can also change
@@ -30,9 +29,9 @@ import java.util.Properties;
 public class EditUserProfile extends ActionBarActivity {
 
     private String email;
-
+    static final String emailString = "email";
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
 
@@ -53,32 +52,33 @@ public class EditUserProfile extends ActionBarActivity {
 
         Button save = (Button) findViewById(R.id.editprofile_save);
         save.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 final ProgressDialog spinner = ProgressDialog.show(EditUserProfile.this, "Updating...", "please wait");
                 final Map<String, String> info = getData();
-                final CharSequence new_pass = ((TextView) findViewById(R.id.editprofile_newpass)).getText();
+                final CharSequence newPass = ((TextView) findViewById(R.id.editprofile_newpass)).getText();
 
-                final boolean email_changed = !email.equals(info.get("email"));
-                final boolean pass_changed = new_pass != null && new_pass.length() > 0;
+                final boolean emailChanged = !email.equals(info.get(emailString));
+                final boolean passChanged = newPass != null && newPass.length() > 0;
 
-                if (email_changed || pass_changed) {
-                    final EditText ask_pass = new EditText(EditUserProfile.this);
-                    ask_pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                if (emailChanged || passChanged) {
+                    final EditText askPass = new EditText(EditUserProfile.this);
+                    askPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
                     new AlertDialog.Builder(EditUserProfile.this)
                         .setTitle("Changing Email or Password requires Authentication")
-                        .setView(ask_pass)
+                        .setView(askPass)
                         .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String pass = ask_pass.getText().toString();
-                                if (pass_changed) {
-                                    fb.changePassword(email, pass, new_pass.toString(), new Firebase.ResultHandler() {
+                                String pass = askPass.getText().toString();
+                                if (passChanged) {
+                                    fb.changePassword(email, pass, newPass.toString(), new Firebase.ResultHandler() {
                                         @Override
                                         public void onSuccess() {
-                                            if (email_changed) {
-                                                fb.changeEmail(email, new_pass.toString(), info.get("email"), new Firebase.ResultHandler() {
+                                            if (emailChanged) {
+                                                fb.changeEmail(email, newPass.toString(), info.get(emailString), new Firebase.ResultHandler() {
                                                     @Override
                                                     public void onSuccess() {
                                                         // Finish email & pass
@@ -107,8 +107,8 @@ public class EditUserProfile extends ActionBarActivity {
                                             spinner.dismiss();
                                         }
                                     });
-                                } else if (email_changed) {
-                                    fb.changeEmail(email, pass, info.get("email"), new Firebase.ResultHandler() {
+                                } else if (emailChanged) {
+                                    fb.changeEmail(email, pass, info.get(emailString), new Firebase.ResultHandler() {
                                         @Override
                                         public void onSuccess() {
                                             // finish email, no new pass
@@ -164,13 +164,13 @@ public class EditUserProfile extends ActionBarActivity {
     }
 
     private void populate (Map<String, String> data) {
-        System.out.println(data);
+        //System.out.println(data);
         ((TextView) findViewById(R.id.editprofile_name)).setText(data.get("name"));
         ((TextView) findViewById(R.id.editprofile_email)).setText(data.get("email"));
         ((TextView) findViewById(R.id.editprofile_major)).setText(data.get("major"));
         ((TextView) findViewById(R.id.editprofile_interests)).setText(data.get("interests"));
 
-        this.email = data.get("email");
+        this.email = data.get(emailString);
     }
 
     private Map<String, String> getData() {

@@ -19,7 +19,9 @@ import java.util.Map;
  * Created by andrew on 3/14/16.
  */
 public class BestMovies {
+    private BestMovies(){
 
+    }
     /**
      * Fetch id's of highest rated movies by major
      * @param fb Firebase reference to the root
@@ -36,6 +38,7 @@ public class BestMovies {
                     fb.removeEventListener(this);
                     return;
                 }
+                final String ratingsString = "ratings";
                 fb.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
@@ -44,8 +47,8 @@ public class BestMovies {
 
                         for (Map<String, Object> user : users.values()) {
                             Log.i("dank memes", user.toString());
-                            if (user.containsKey("major") && user.get("major").equals(major) && user.containsKey("ratings")) {
-                                Map<String, String> user_ratings = (Map<String, String>) user.get("ratings");
+                            if (user.containsKey("major") && user.get("major").equals(major) && user.containsKey(ratingsString)) {
+                                Map<String, String> user_ratings = (Map<String, String>) user.get(ratingsString);
                                 for (String movie_id : user_ratings.keySet()) {
                                     if (!all_ratings.containsKey(movie_id)) {
                                         all_ratings.put(Long.parseLong(movie_id), new ArrayList<Float>());
@@ -109,6 +112,7 @@ public class BestMovies {
      * @param callback called with a List of rotten tomato movie id's
      */
     public static void highestRatedOverall(final Firebase fb, final RottenApi.Callback<List<Long>> callback) {
+        final String ratingsString = "ratings";
         fb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -117,8 +121,8 @@ public class BestMovies {
 
                 for (Map<String, Object> user : users.values()) {
                     Log.i("dank memes", user.toString());
-                    if (user.containsKey("ratings")) {
-                        Map<String, String> user_ratings = (Map<String, String>) user.get("ratings");
+                    if (user.containsKey(ratingsString)) {
+                        Map<String, String> user_ratings = (Map<String, String>) user.get(ratingsString);
                         for (String movie_id : user_ratings.keySet()) {
                             if (!all_ratings.containsKey(movie_id)) {
                                 all_ratings.put(Long.parseLong(movie_id), new ArrayList<Float>());

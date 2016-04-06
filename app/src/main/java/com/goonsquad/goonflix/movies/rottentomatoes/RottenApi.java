@@ -26,38 +26,35 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Rotten Tomatoes API using Android's Volley
  */
 public class RottenApi {
-    public String key;
-    public RequestQueue request_queue;
+    private String key;
+    private RequestQueue request_queue;
 
     public static final String TAG = "GOONFLIX_ROTTEN_API";
     public static final String MOVIE_SEARCH = "http://api.rottentomatoes.com/api/public/v1.0/movies.json";
     public static final String NEW_RELEASES = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json";
     public static final String NEW_DVDS = "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json";
     public static final String GET_MOVIE = "http://api.rottentomatoes.com/api/public/v1.0/movies/";
+    public static final int ROTTEN_16 = 16;
+    public static final int ROTTEN_3 = 3;
+    public static final int ROTTEN_30 = 30;
+    public static final int ROTTEN_205 = 205;
 
-    /**
-     * A callback to notify the user when an API call has finished.
-     * @param <D> The expected result of the API call.
-     */
-    public interface Callback<D> {
-        void success(D data);
-        void failure(VolleyError error);
-    }
+
 
     /**
      * Create an instance of the RottenTomatoes API
      * @param context the context from which this will run from
      * @param key the API key for rotten tomatoes
      */
-    public RottenApi(Context context, String key) {
-        this.key = key;
+    public RottenApi(Context context, String p_key) {
+        this.key = p_key;
         this.request_queue = Volley.newRequestQueue(context);
     }
 
     /**
      * Destruct this instance when the activity closes
      */
-    public void destroy() {
+    public final void destroy() {
         this.request_queue.cancelAll(TAG);
     }
 
@@ -65,8 +62,8 @@ public class RottenApi {
      * Get a list of new DVDs
      * @param callback called when a list is available or an error occurred.
      */
-    public void new_dvds(Callback<List<RTMovie>> callback) {
-        new_dvds(16, 1, callback);
+    public final void new_dvds(Callback<List<RTMovie>> callback) {
+        new_dvds(ROTTEN_16, 1, callback);
     }
 
     /**
@@ -75,8 +72,8 @@ public class RottenApi {
      * @param page page from which to retrieve the elements
      * @param callback called when a list is available or an error occurred.
      */
-    public void new_dvds(Integer number, Integer page, final Callback<List<RTMovie>> callback) {
-        List<NameValuePair> params = new ArrayList<>(3);
+    public final void new_dvds(Integer number, Integer page, final Callback<List<RTMovie>> callback) {
+        List<NameValuePair> params = new ArrayList<>(ROTTEN_3);
         params.add(new BasicNameValuePair("country", "us"));
         params.add(new BasicNameValuePair("page_limit", number.toString()));
         params.add(new BasicNameValuePair("page", page.toString()));
@@ -103,8 +100,8 @@ public class RottenApi {
      * Get a list of new releases
      * @param callback called when a list is available or an error occurred.
      */
-    public void new_releases(Callback<List<RTMovie>> callback) {
-        new_releases(16, 1, callback);
+    public final void new_releases(Callback<List<RTMovie>> callback) {
+        new_releases(ROTTEN_16, 1, callback);
     }
 
     /**
@@ -113,8 +110,8 @@ public class RottenApi {
      * @param page page from which to retrieve it from
      * @param callback called when a list is available or an error occurred.
      */
-    public void new_releases(Integer number, Integer page, final Callback<List<RTMovie>> callback) {
-        List<NameValuePair> params = new ArrayList<>(3);
+    public final void new_releases(Integer number, Integer page, final Callback<List<RTMovie>> callback) {
+        List<NameValuePair> params = new ArrayList<>(ROTTEN_3);
         params.add(new BasicNameValuePair("country", "us"));
         params.add(new BasicNameValuePair("page_limit", number.toString()));
         params.add(new BasicNameValuePair("page", page.toString()));
@@ -142,8 +139,8 @@ public class RottenApi {
      * @param query search for a movie using the query
      * @param callback called when a list of results is available or an error has occurred.
      */
-    public void search_movies(String query, Callback<List<RTMovie>> callback) {
-        search_movies(query, 30, 1, callback);
+    public final void search_movies(String query, Callback<List<RTMovie>> callback) {
+        search_movies(query, ROTTEN_30, 1, callback);
     }
 
     /**
@@ -153,8 +150,8 @@ public class RottenApi {
      * @param page the page from which to get the results
      * @param callback called when a list of results is ready or an error has occurred.
      */
-    public void search_movies(String query, Integer number, Integer page, final Callback<List<RTMovie>> callback) {
-        List<NameValuePair> params = new ArrayList<>(3);
+    public final void search_movies(String query, Integer number, Integer page, final Callback<List<RTMovie>> callback) {
+        List<NameValuePair> params = new ArrayList<>(ROTTEN_3);
         params.add(new BasicNameValuePair("q", query));
         params.add(new BasicNameValuePair("page_limit", number.toString()));
         params.add(new BasicNameValuePair("page", page.toString()));
@@ -182,23 +179,23 @@ public class RottenApi {
      * @param ids the ids of the movies to fetch
      * @return a list of parsed RTMovie objects
      */
-    public void fetch_movies(final List<Long> ids, final Callback<List<RTMovie>> callback) {
+    public final void fetch_movies(final List<Long> ids, final Callback<List<RTMovie>> callback) {
 
         if (ids.size() == 0) {
             callback.success(new ArrayList<RTMovie>(0));
             return;
         }
 
-        final JSONArray json_movies = new JSONArray();
+        final JSONArray jsonMovies = new JSONArray();
 
         Callback<JSONObject> collector = new Callback<JSONObject>() {
             @Override
             public void success(JSONObject data) {
-                json_movies.put(data);
-                if (json_movies.length() == ids.size()) {
+                jsonMovies.put(data);
+                if (jsonMovies.length() == ids.size()) {
                     try {
-                        Log.i(TAG, json_movies.toString());
-                        parse_movies(json_movies, callback);
+                        Log.i(TAG, jsonMovies.toString());
+                        parse_movies(jsonMovies, callback);
                     } catch (JSONException err) {
                         callback.failure(new VolleyError("JSON parsing exception"));
                     }
@@ -216,9 +213,9 @@ public class RottenApi {
             uri_builder.appendPath(id + ".json");
             rest_request(uri_builder.build().toString(), null, collector);
             try {
-                Thread.sleep(205);
+                Thread.sleep(ROTTEN_205);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.d("fetch_movies_error", Log.getStackTraceString(e));
             }
         }
     }
@@ -264,5 +261,13 @@ public class RottenApi {
         });
         request.setTag(TAG);
         request_queue.add(request);
+    }
+    /**
+     * A callback to notify the user when an API call has finished.
+     * @param <D> The expected result of the API call.
+     */
+    public interface Callback<D> {
+        void success(D data);
+        void failure(VolleyError error);
     }
 }

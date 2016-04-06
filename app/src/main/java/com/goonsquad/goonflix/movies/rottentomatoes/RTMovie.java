@@ -55,12 +55,12 @@ public class RTMovie implements Parcelable{
     };
 
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(mpaa_rating);
         dest.writeLong(id);
@@ -68,13 +68,7 @@ public class RTMovie implements Parcelable{
         dest.writeParcelable(thumbnail, PARCELABLE_WRITE_RETURN_VALUE);
     }
 
-    /**
-     * A simple callback to notify user when this movie has finished
-     * downloading extra assets from rotten tomatoes
-     */
-    public interface Callback {
-        void finished();
-    }
+
 
     /**
      * Build a new RTMovie
@@ -104,17 +98,24 @@ public class RTMovie implements Parcelable{
         downloader.execute(thumb);
     }
 
-    public String getTitle() { return title; }
-    public String getMPAARating() { return mpaa_rating; }
-    public String getYearString() { return year == null ? "-" : year.toString(); }
-    public Long getYear() { return year; }
-    public Long getId() { return id; }
+    public final String getTitle() { return title; }
+    public final String getMPAARating() { return mpaa_rating; }
+    public final String  getYearString() { return year == null ? "-" : year.toString(); }
+    public final Long getYear() { return year; }
+    public final Long getId() { return id; }
 
     /**
      * Get the thumbnail of this movie
      * @return the thumbnail as a Bitmap
      */
-    public Bitmap getThumbnail() {
+    public final Bitmap getThumbnail() {
         return thumbnail;
+    }
+    /**
+     * A simple callback to notify user when this movie has finished
+     * downloading extra assets from rotten tomatoes
+     */
+    public interface Callback {
+        void finished();
     }
 }

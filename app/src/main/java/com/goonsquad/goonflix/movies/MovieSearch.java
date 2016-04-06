@@ -27,7 +27,7 @@ public class MovieSearch extends ActionBarActivity {
     private RottenApi rotten_api;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_search);
 
@@ -82,7 +82,7 @@ public class MovieSearch extends ActionBarActivity {
     }
 
     @Override
-    public void onStop() {
+    public final void onStop() {
         super.onStop();
         rotten_api.destroy();
     }

@@ -16,7 +16,7 @@ import com.goonsquad.goonflix.movies.rottentomatoes.RTMovie;
 import com.goonsquad.goonflix.movies.rottentomatoes.RottenApi;
 import com.goonsquad.goonflix.user.UserInfo;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public class MovieList extends ActionBarActivity {
     public static final String DATA_SOURCE_TAG = "data-source";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
 
@@ -62,7 +62,7 @@ public class MovieList extends ActionBarActivity {
     }
 
     @Override
-    public void onResume() {
+    public final void onResume() {
         super.onResume();
         final ProgressDialog spinner = ProgressDialog.show(this, "Loading...", "Please wait");
 
@@ -120,7 +120,7 @@ public class MovieList extends ActionBarActivity {
     }
 
     @Override
-    protected void onStop() {
+    protected final void onStop() {
         super.onStop();
         rotten_api.destroy();
     }

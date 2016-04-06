@@ -20,22 +20,22 @@ import java.util.List;
  */
 public class MovieResultAdapter extends BaseAdapter {
 
-    public List<RTMovie> movies;
-    public Context context;
+    private List<RTMovie> movies;
+    private Context context;
 
     /**
      * Create an adapter for a list of movies.
      * This will take a list of Rotten Tomatoes movies and Display them in the UI.
-     * @param context The context from which this is being run from.
+     * @param p_context The context from which this is being run from.
      */
-    public MovieResultAdapter(Context context) {
+    public MovieResultAdapter(Context p_context) {
         super();
         movies = new ArrayList<>();
-        this.context = context;
+        this.context = p_context;
     }
 
-    public void updateMovieList(List<RTMovie> movies) {
-        this.movies = movies;
+    public final void updateMovieList(List<RTMovie> p_movies) {
+        this.movies = p_movies;
         this.notifyDataSetInvalidated();
     }
 
@@ -44,27 +44,27 @@ public class MovieResultAdapter extends BaseAdapter {
      * @param position index of the list item
      * @return the movie represented as an RTMovie
      */
-    public RTMovie getMovie(int position) {
+    public final RTMovie getMovie(int position) {
         return movies.get(position);
     }
 
     @Override
-    public int getCount() {
+    public final int getCount() {
         return movies.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public final Object getItem(int position) {
         return movies.get(position);
     }
 
     @Override
-    public long getItemId(int position) {
+    public final long getItemId(int position) {
         return movies.get(position).getId();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public final View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RTMovie movie = movies.get(position);
 

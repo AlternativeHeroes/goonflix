@@ -1,7 +1,7 @@
 package com.goonsquad.goonflix;
 
 import android.content.Intent;
-import android.graphics.Movie;
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,13 +21,13 @@ import com.goonsquad.goonflix.user.UserInfo;
 public class UserHomepage extends ActionBarActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
 
         // TODO create "AuthenticatedActivity" super class with this logic
         if (!UserInfo.isLoggedIn()) {
-            System.out.println("User not logged in. Cannot access this Activity");
+            //System.out.println("User not logged in. Cannot access this Activity");
             throw new AssertionError("pepe inhaled too much jet fuel");
         }
 
@@ -106,8 +106,8 @@ public class UserHomepage extends ActionBarActivity {
             }
         });
 
-        final Button ban_management = (Button) findViewById(R.id.homepage_banman);
-        ban_management.setOnClickListener(new View.OnClickListener() {
+        final Button banManagement = (Button) findViewById(R.id.homepage_banman);
+        banManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // go to ban management screen
@@ -123,7 +123,7 @@ public class UserHomepage extends ActionBarActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean is_admin = dataSnapshot.hasChild("admin");
-                ban_management.setVisibility(is_admin ? View.VISIBLE : View.GONE);
+                banManagement.setVisibility(is_admin ? View.VISIBLE : View.GONE);
             }
 
             @Override

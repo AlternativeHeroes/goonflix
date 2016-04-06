@@ -16,12 +16,13 @@ import com.goonsquad.goonflix.user.UserInfo;
 
 public class MovieView extends ActionBarActivity {
 
-    RTMovie movie;
 
-    Firebase fb, fb2;
+
+    private Firebase fb, fb2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
+        RTMovie movie;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_view);
 
@@ -44,7 +45,7 @@ public class MovieView extends ActionBarActivity {
         ((TextView) findViewById(R.id.movieview_mpaa_rating)).setText(movie.getMPAARating()); // this is not a bug
         ((ImageView) findViewById(R.id.movieview_image)).setImageBitmap(movie.getThumbnail());
 
-        final RatingBar rating_bar = (RatingBar) findViewById(R.id.movieview_user_rating);
+        final RatingBar ratingBar = (RatingBar) findViewById(R.id.movieview_user_rating);
 
         fb.addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,7 +53,7 @@ public class MovieView extends ActionBarActivity {
                 String val = (String) dataSnapshot.getValue();
                 if (val != null) {
                     float user_rating = Float.parseFloat(val);
-                    rating_bar.setRating(user_rating);
+                    ratingBar.setRating(user_rating);
                 }
             }
 
@@ -62,7 +63,7 @@ public class MovieView extends ActionBarActivity {
             }
         });
 
-        rating_bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 if (fromUser) {

@@ -12,7 +12,7 @@ import com.goonsquad.goonflix.WelcomeScreen;
  * "Singleton" "instance" information holder for uid of logged in user
  */
 public class UserInfo {
-
+    private UserInfo(){}
     private static final String USER_INFO_PREFERENCES = "goonflix_user_info";
     private static String uid;
 
@@ -22,7 +22,7 @@ public class UserInfo {
      * @param source
      */
     public static void init(Activity source) {
-        uid = source.getSharedPreferences("goonflix_user_info", 0).getString("uid", null);
+        uid = source.getSharedPreferences( USER_INFO_PREFERENCES, 0).getString("uid", null);
         if (isLoggedIn()) {
             gotoUserHomepage(source);
         } else {
@@ -48,14 +48,14 @@ public class UserInfo {
      * @param source the activity from which this is being called
      */
     @SuppressLint("CommitPrefEdits")
-    public static void login(String uid, Activity source) {
+    public static void login(String p_uid, Activity source) {
         if (isLoggedIn()) {
             throw new AlreadyLoggedInException();
         }
         // set the in-memory uid
-        UserInfo.uid = uid;
+        UserInfo.uid = p_uid;
         // save the uid to app's storage
-        SharedPreferences.Editor editor = source.getSharedPreferences("goonflix_user_info", 0).edit();
+        SharedPreferences.Editor editor = source.getSharedPreferences( USER_INFO_PREFERENCES, 0).edit();
         editor.putString("uid", uid);
         editor.commit();
         // move to user homepage
@@ -77,7 +77,7 @@ public class UserInfo {
         // clear the in-memory uid
         UserInfo.uid = null;
         // save the uid to app's storage
-        SharedPreferences.Editor editor = source.getSharedPreferences("goonflix_user_info", 0).edit();
+        SharedPreferences.Editor editor = source.getSharedPreferences( USER_INFO_PREFERENCES, 0).edit();
         editor.remove("uid");
         editor.commit();
         // move to welcome screen
