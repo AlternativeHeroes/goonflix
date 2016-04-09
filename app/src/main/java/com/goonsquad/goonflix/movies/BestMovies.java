@@ -46,7 +46,6 @@ public class BestMovies {
                         Map<String, Map<String, Object>> users = (Map<String, Map<String, Object>>) snapshot.child("users").getValue();
 
                         for (Map<String, Object> user : users.values()) {
-                            Log.i("dank memes", user.toString());
                             if (user.containsKey("major") && user.get("major").equals(major) && user.containsKey(ratingsString)) {
                                 Map<String, String> user_ratings = (Map<String, String>) user.get(ratingsString);
                                 for (String movie_id : user_ratings.keySet()) {
@@ -59,29 +58,8 @@ public class BestMovies {
                             }
                         }
 
-                        Map<Long, Float> avg_ratings = new HashMap<Long, Float>();
-                        for (Long movie_id : all_ratings.keySet()) {
-                            List<Float> ratings = all_ratings.get(movie_id);
-                            float average = 0;
-                            for (float rating : ratings) {
-                                average += rating;
-                            }
-                            average /= ratings.size();
-                            avg_ratings.put(movie_id, average);
-                        }
-
-                        Map.Entry<Long, Float>[] entries = new Map.Entry[avg_ratings.size()];
-                        avg_ratings.entrySet().toArray(entries);
-                        List<Map.Entry<Long, Float>> entry_list = new ArrayList();
-                        for (Map.Entry<Long, Float> entry : entries) {
-                            entry_list.add(entry);
-                        }
-                        Collections.sort(entry_list, new Comparator<Map.Entry<Long, Float>>() {
-                            @Override
-                            public int compare(Map.Entry<Long, Float> lhs, Map.Entry<Long, Float> rhs) {
-                                return Float.compare(rhs.getValue(), lhs.getValue());
-                            }
-                        });
+                        Map<Long, Float> avg_ratings = get_average_ratings(all_ratings);
+                        List<Map.Entry<Long, Float>> entry_list = get_entries(avg_ratings);
 
                         List<Long> movie_ids = new ArrayList();
                         for (Map.Entry<Long, Float> entry : entry_list) {
@@ -91,19 +69,44 @@ public class BestMovies {
                         fb.removeEventListener(this);
                         callback.success(movie_ids);
                     }
-
                     @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
+                    public void onCancelled(FirebaseError firebaseError) {}
                 });
             }
-
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(FirebaseError firebaseError) {}
+        });
+    }
 
+    private static Map<Long, Float> get_average_ratings(Map<Long, List<Float>> all_ratings) {
+        Map<Long, Float> avg_ratings = new HashMap<Long, Float>();
+        for (Long movie_id : all_ratings.keySet()) {
+            List<Float> ratings = all_ratings.get(movie_id);
+            float average = 0;
+            for (float rating : ratings) {
+                average += rating;
+            }
+            average /= ratings.size();
+            avg_ratings.put(movie_id, average);
+        }
+        return avg_ratings;
+    }
+
+    private static List<Map.Entry<Long, Float>> get_entries (Map<Long, Float> avg_ratings) {
+        Map.Entry<Long, Float>[] entries = new Map.Entry[avg_ratings.size()];
+        avg_ratings.entrySet().toArray(entries);
+        List<Map.Entry<Long, Float>> entry_list = new ArrayList();
+        for (Map.Entry<Long, Float> entry : entries) {
+            entry_list.add(entry);
+        }
+        Collections.sort(entry_list, new Comparator<Map.Entry<Long, Float>>() {
+            @Override
+            public int compare(Map.Entry<Long, Float> lhs, Map.Entry<Long, Float> rhs) {
+                return Float.compare(rhs.getValue(), lhs.getValue());
             }
         });
+
+        return entry_list;
     }
 
     /**
@@ -133,29 +136,8 @@ public class BestMovies {
                     }
                 }
 
-                Map<Long, Float> avg_ratings = new HashMap<Long, Float>();
-                for (Long movie_id : all_ratings.keySet()) {
-                    List<Float> ratings = all_ratings.get(movie_id);
-                    float average = 0;
-                    for (float rating : ratings) {
-                        average += rating;
-                    }
-                    average /= ratings.size();
-                    avg_ratings.put(movie_id, average);
-                }
-
-                Map.Entry<Long, Float>[] entries = new Map.Entry[avg_ratings.size()];
-                avg_ratings.entrySet().toArray(entries);
-                List<Map.Entry<Long, Float>> entry_list = new ArrayList();
-                for (Map.Entry<Long, Float> entry : entries) {
-                    entry_list.add(entry);
-                }
-                Collections.sort(entry_list, new Comparator<Map.Entry<Long, Float>>() {
-                    @Override
-                    public int compare(Map.Entry<Long, Float> lhs, Map.Entry<Long, Float> rhs) {
-                        return Float.compare(rhs.getValue(), lhs.getValue());
-                    }
-                });
+                Map<Long, Float> avg_ratings = get_average_ratings(all_ratings);
+                List<Map.Entry<Long, Float>> entry_list = get_entries(avg_ratings);
 
                 List<Long> movie_ids = new ArrayList();
                 for (Map.Entry<Long, Float> entry : entry_list) {
@@ -165,11 +147,8 @@ public class BestMovies {
                 fb.removeEventListener(this);
                 callback.success(movie_ids);
             }
-
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
+            public void onCancelled(FirebaseError firebaseError) {}
         });
     }
 
