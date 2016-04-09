@@ -181,4 +181,12 @@ public class EditUserProfile extends ActionBarActivity {
         info.put("interests", ((TextView) findViewById(R.id.editprofile_interests)).getText().toString());
         return info;
     }
+
+    public static boolean validateMajor(String major) {
+        if (major == null) {
+            return false;
+        }
+        String regex = "([A-Z][a-z]+(?=\\s[A-Z])(?:\\s[A-Z][a-z]+)+)";
+        return major.matches(regex);
+    }
 }
