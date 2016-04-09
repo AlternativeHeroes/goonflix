@@ -119,6 +119,15 @@ public class LoginActivity extends ActionBarActivity {
         String password = mPasswordView.getText().toString();
         final ProgressDialog loginSpinner = ProgressDialog.show(LoginActivity.this, "Logging in", "Please wait");
 
+        PasswordError error = validatePassword(password);
+        if (error != PasswordError.None) {
+            loginSpinner.dismiss();
+            isAttemptingAuthentication = false;
+            mEmailSignInButton.setEnabled(true);
+            new AlertDialog.Builder(LoginActivity.this).setMessage(error.toString())
+                    .setPositiveButton("Ok", null).create().show();
+            return;
+        }
 
         fb.authWithPassword(email, password, new Firebase.AuthResultHandler() {
             @Override
@@ -154,11 +163,48 @@ public class LoginActivity extends ActionBarActivity {
                 loginSpinner.dismiss();
                 isAttemptingAuthentication = false;
                 mEmailSignInButton.setEnabled(true);
-                //System.out.println(firebaseError);
                 new AlertDialog.Builder(LoginActivity.this).setMessage(firebaseError.getMessage())
                         .setPositiveButton("Ok", null).create().show();
             }
         });
+    }
+
+    public enum PasswordError {
+        None,
+        IsNull,
+        TooShort,
+        ContainsNumbers,
+        ContainsSpecials;
+
+        @Override
+        public String toString() {
+            if (this == PasswordError.None) {
+                return "No error.";
+            } else if (this == PasswordError.IsNull) {
+                return "No password given";
+            } else if (this == PasswordError.TooShort) {
+                return "Password too short";
+            } else if (this == PasswordError.ContainsNumbers) {
+                return "Password cannot contain numbers";
+            } else if (this == PasswordError.ContainsSpecials) {
+                return "Password cannot contain special characters";
+            }
+            return "Unknown Password Error";
+        }
+    }
+
+    public static PasswordError validatePassword(String candidate) {
+        if (candidate == null) {
+            return PasswordError.IsNull;
+        } else if (candidate.length() < 5) {
+            return PasswordError.TooShort;
+        } else if (candidate.matches(".*\\d.*")) {
+            return PasswordError.ContainsNumbers;
+        } else if (candidate.matches("[^a-bA-Z ]+")) {
+            return PasswordError.ContainsSpecials;
+        } else {
+            return PasswordError.None;
+        }
     }
 }
 
