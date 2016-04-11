@@ -10,7 +10,7 @@ import java.net.URL;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * Created by koushikkrishnan on 4/11/16.
+ * Created by williamgreenleaf on 4/11/16.
  */
 public class RottenTomatoesApiTest {
 
@@ -30,10 +30,6 @@ public class RottenTomatoesApiTest {
         //add request header
         con.setRequestProperty("User-Agent", USER_AGENT);
 
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + rotten_tomatoes_url);
-        System.out.println("Response Code : " + responseCode);
-
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
@@ -47,7 +43,6 @@ public class RottenTomatoesApiTest {
         assertEquals(false, response.equals(""));
         assertEquals(true, response.lastIndexOf("lists") != -1);
         assertEquals(true, response.lastIndexOf("movies") != -1);
-
 
     }
 
