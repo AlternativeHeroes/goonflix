@@ -57,6 +57,7 @@ public class EmailValidatorTest {
         };
 
         for (int i = 0; i < NUM_VECTORS; i++) {
+            // get a random index from ea
             int user_index = (int) Math.random() * users.length;
             int symbol_index = (int) Math.random() * at_symbol.length;
             int domain_index = (int) Math.random() * domains.length;

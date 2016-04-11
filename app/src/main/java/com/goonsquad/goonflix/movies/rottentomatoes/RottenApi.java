@@ -44,7 +44,7 @@ public class RottenApi {
     /**
      * Create an instance of the RottenTomatoes API
      * @param context the context from which this will run from
-     * @param key the API key for rotten tomatoes
+     * @param p_key the API key for rotten tomatoes
      */
     public RottenApi(Context context, String p_key) {
         this.key = p_key;
